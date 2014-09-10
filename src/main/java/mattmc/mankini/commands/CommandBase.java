@@ -4,6 +4,8 @@ import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.events.MessageEvent;
 
+import java.sql.SQLException;
+
 /**
  * Project MankiniBot
  * Created by MattMc on 5/24/14.
@@ -23,7 +25,7 @@ public abstract class CommandBase {
 
     public String[] args;
 
-    public void channelCommand(MessageEvent<PircBotX> event){
+    public void channelCommand(MessageEvent<PircBotX> event) throws IllegalAccessException, SQLException, InstantiationException {
         message = event.getMessage();
         command = message.split(" ")[0];
         user = event.getUser().getNick();

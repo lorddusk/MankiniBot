@@ -17,13 +17,13 @@ import java.util.ArrayList;
  * Created by MattMc on 7/12/14.
  * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
  */
-public class CommandRegular extends SQLiteListener {
+public class CommandMinion extends SQLiteListener {
     String db = "database\\regulars.db";
     public static boolean isActive;
 
     public ArrayList<String> regCache = new ArrayList<>();
 
-    public CommandRegular(){
+    public CommandMinion(){
         setupDB();
         updateRegulars();
     }
@@ -83,10 +83,10 @@ public class CommandRegular extends SQLiteListener {
             statement.executeUpdate();
             statement.close();
             closeConnection();
-            MessageSending.sendMessageWithPrefix(user + " is now regular!", user, event);
+            MessageSending.sendMessageWithPrefix(user + " is now a minion!", user, event);
             regCache.add(user);
         }else{
-            MessageSending.sendMessageWithPrefix(user + " is already regular!", user, event);
+            MessageSending.sendMessageWithPrefix(user + " is already a minion!", user, event);
         }
 
     }
@@ -98,10 +98,10 @@ public class CommandRegular extends SQLiteListener {
             PreparedStatement statement = c.prepareStatement(sql);
             statement.setString(1, user.toLowerCase());
             statement.executeUpdate();
-            MessageSending.sendMessageWithPrefix(user + " is removed from the regular list!", user, event);
+            MessageSending.sendMessageWithPrefix(user + " is removed from the minion list!", user, event);
             regCache.remove(user);
         }else{
-            MessageSending.sendMessageWithPrefix(user + " wasn't regular in the first place!", user, event);
+            MessageSending.sendMessageWithPrefix(user + " wasn't a minion in the first place!", user, event);
         }
         closeConnection();
     }
@@ -129,9 +129,9 @@ public class CommandRegular extends SQLiteListener {
                 }else if(args[1].equalsIgnoreCase("check")){
                     try {
                         if(isRegular(args[2].toLowerCase())){
-                            MessageSending.sendMessageWithPrefix(user + " " + args[2].toLowerCase() + " is regular", user, event);
+                            MessageSending.sendMessageWithPrefix(user + " " + args[2].toLowerCase() + " is a minion", user, event);
                         }else{
-                            MessageSending.sendMessageWithPrefix(user + " " + args[2].toLowerCase() + " is not regular", user, event);
+                            MessageSending.sendMessageWithPrefix(user + " " + args[2].toLowerCase() + " is not a minion", user, event);
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();

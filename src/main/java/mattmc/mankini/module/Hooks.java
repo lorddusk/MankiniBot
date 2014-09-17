@@ -60,7 +60,8 @@ public class Hooks extends ListenerAdapter<PircBotX> {
          */
         if (event.getMessage().contains("http") || event.getMessage().contains("www.") || event.getMessage().contains(".com")
                 || event.getMessage().contains(".net") || event.getMessage().contains(".co") ||
-                event.getMessage().contains(".co.uk") || event.getMessage().contains(".org")) {
+                event.getMessage().contains(".co.uk") || event.getMessage().contains(".org") || event.getMessage().contains("pedo")
+                || event.getMessage().contains("pedophile") || event.getMessage().contains(".nl") || event.getMessage().contains(".xxx")) {
 
             if (Permissions.isPermitted(event.getUser().getNick(), event)) {
                 CommandLinks.permitted.remove(event.getUser().getNick().toLowerCase());

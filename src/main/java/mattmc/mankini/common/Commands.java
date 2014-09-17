@@ -26,7 +26,8 @@ public class Commands extends ListenerAdapter<PircBotX> {
         commands.put("players", new CommandPlayers());
         commands.put("command", new CommandFactoid());
         commands.put("kinis", new CommandKinis());
-        commands.put("reg", new CommandRegular());
+        commands.put("regular", new CommandRegular());
+        commands.put("minion", new CommandMinion());
         commands.put("rank", new CommandBuy());
         commands.put("highlight", new CommandHighlight());
     }

@@ -91,12 +91,12 @@ public class CommandFactoid extends SQLiteListener
             if(Permissions.isModerator(getNick(event),event)){
                 if(message.length() >= 3){
                     try{
-                        //if(existsInDatabase(db, "FACTOIDS", args[2].toLowerCase())){
+                        if(existsInDatabase(db, "FACTOIDS", args[2].toLowerCase())){
                             removeCommand(args[2]);
                             MessageSending.sendNormalMessage("Successfully Removed Command!", event);
-                        //}else{
-                        //    MessageSending.sendMessageWithPrefix(user + " That Command Doesn't Exist!", user, event);
-                        //}
+                        }else{
+                            MessageSending.sendMessageWithPrefix(user + " That Command Doesn't Exist!", user, event);
+                        }
                     }catch(SQLException e){
                         MessageSending.sendNormalMessage(Colors.RED + e.getMessage(), event);
                     }

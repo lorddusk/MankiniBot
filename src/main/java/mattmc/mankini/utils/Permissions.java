@@ -14,29 +14,41 @@ import java.sql.SQLException;
  * This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License.
  */
 public class Permissions {
+
+    static boolean owner = false;
+    static boolean moderator = false;
+    static boolean regular = false;
+
+
     public static boolean isOwner(String user, MessageEvent event) {
         if (user.equals("runew0lf")) {
+            owner = true;
             return true;
         } else {
-            noPermissionMessage(user, event);
+            owner = false;
+            noPermissionOwnMessage(user, event);
         }
         return false;
     }
 
     public static boolean isModerator(String user, MessageEvent event) {
-        if (ModCommon.moderators.contains(user.toLowerCase()) || isOwner(user, event)) {
+        if (ModCommon.moderators.contains(user.toLowerCase()) || user.equals("runew0lf")) {
+            moderator = true;
             return true;
         } else {
-            noPermissionMessage(user, event);
+            moderator = false;
+            noPermissionModMessage(user, event);
         }
         return false;
     }
 
     public static boolean isRegular(String user, MessageEvent event) throws IllegalAccessException, InstantiationException, SQLException {
-        if (CommandRegular.class.newInstance().isRegular(user) || isModerator(user, event) || isOwner(user, event)) {
+        if (CommandRegular.class.newInstance().isRegular(user) || ModCommon.moderators.contains(user.toLowerCase()) || user.equals("runew0lf")) {
+            regular = true;
             return true;
         } else {
-            noPermissionMessage(user, event);
+            regular = false;
+            noPermissionRegMessage(user, event);
         }
         return false;
     }
@@ -62,7 +74,21 @@ public class Permissions {
         return false;
     }
 
-    public static void noPermissionMessage(String user, MessageEvent event) {
-        MessageSending.sendMessageWithPrefix(user + " You Do Not Have Permissions To Do That", user, event);
+    public static void noPermissionRegMessage(String user, MessageEvent event) {
+        if(!regular && !moderator && !owner) {
+            MessageSending.sendMessageWithPrefix(user + " you do not have permissions to do that", user, event);
+        }
+    }
+
+    public static void noPermissionModMessage(String user, MessageEvent event) {
+        if(!moderator && !owner) {
+            MessageSending.sendMessageWithPrefix(user + " you do not have permissions to do that", user, event);
+        }
+    }
+
+    public static void noPermissionOwnMessage(String user, MessageEvent event) {
+        if(!owner) {
+            MessageSending.sendMessageWithPrefix(user + " you do not have permissions to do that", user, event);
+        }
     }
 }
